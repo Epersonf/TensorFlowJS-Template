@@ -1,6 +1,7 @@
 import * as tf from "@tensorflow/tfjs-node";
 import { Sequential } from "@tensorflow/tfjs-node";
 import TFModel from "./utils/tf_model";
+import { plot, Plot } from "nodeplotlib";
 
 async function main() {
   const tfModel: TFModel = await TFModel.new("file://assets/models/trained_model/", (model: Sequential) => {
@@ -16,9 +17,25 @@ async function main() {
   });
 
   const range = (start: number, stop: number): number[] => Array.from({ length: stop - start + 1 }, (_, i) => start + i);
-  const vec = range(-5, 5);
+  const xTrain = range(-100, 100);
+  const yTrain = xTrain.map(e => e * e);
 
-  tfModel.getModel().fit(tf.tensor1d(vec), tf.tensor1d(vec.map(e => e * e)), {
+  console.log(xTrain);
+  console.log(yTrain);
+  
+  const data: Plot[] = [
+    {
+      x: xTrain,
+      y: yTrain,
+      type: 'scatter',
+    },
+  ];
+  
+  plot(data);
+  return;
+
+
+  tfModel.getModel().fit(tf.tensor1d(xTrain), tf.tensor1d(yTrain), {
     epochs: 10000
   });
 
