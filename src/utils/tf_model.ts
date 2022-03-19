@@ -1,6 +1,5 @@
-import { Layer } from "@tensorflow/tfjs-layers/dist/engine/topology";
-import * as tf from "@tensorflow/tfjs-node";
-import { ModelCompileArgs, Sequential, string } from "@tensorflow/tfjs-node";
+import * as tf from "@tensorflow/tfjs-node-gpu";
+import { ModelCompileArgs, Sequential, string } from "@tensorflow/tfjs-node-gpu";
 
 class TFModel {
   private model: Sequential;
