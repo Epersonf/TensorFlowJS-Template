@@ -3,8 +3,8 @@ import * as tf from "@tensorflow/tfjs-node";
 import { ModelCompileArgs, Sequential, string } from "@tensorflow/tfjs-node";
 
 class TFModel {
-  model: Sequential;
-  path: string;
+  private model: Sequential;
+  private path: string;
 
   static async new(path: string, createModel: (model: Sequential) => Sequential): Promise<TFModel> {
     const loadedModel = await TFModel.load(path);
@@ -27,6 +27,11 @@ class TFModel {
 
   getModel(): Sequential {
     return this.model;
+  }
+
+  predict(value: number) {
+    const result = this.model.predict(tf.tensor1d([value])) as tf.Tensor;
+    return result.dataSync()[0];
   }
 
   save() {
