@@ -32,7 +32,6 @@ async function main() {
   ];
   
   plot(data);
-  return;
 
 
   tfModel.getModel().fit(tf.tensor1d(xTrain), tf.tensor1d(yTrain), {
